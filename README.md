@@ -1,6 +1,12 @@
 # courses
 Web Dev - Courses
 
-Ce répertoire contient des fichiers README d'exercice faites en cours
+Ce répertoire est un hub de différents README.
 
-Il sera sûrement amené à contenir des README faits personnellement. 
+Ceux-ci concerneront surement : 
+
+* Javascript
+* jQuery
+* Php
+* Wordpress 
+* Bash (peut-être)
