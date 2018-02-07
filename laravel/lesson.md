@@ -6,7 +6,7 @@ Créer une page affichant des produits récupérés de la base de donnée
 * Controller
 * Migrations
 
-( Mise en place de son projet )
+_Cela nécessite d'avoir au préalable un projet Laravel_
 
 
 __Lier la DB au projet via PhpStorm__
@@ -33,7 +33,7 @@ Utiliser la commande :
     
 **Important**: La commande `artisan` n'est utilisable qu'à la **racine** du projet
 
-__Préparer les columns à insérer__
+__Préparer les colonnes à insérer__
 
 Dans le fichier `/database/migrations/[date]_create_name_table.php`, y rajouter les colonnes que l'on souhaite ajouter.
 
@@ -120,3 +120,30 @@ Dans le dossier `/resources/views/`, créer un fichier `nomView.blade.php`
 
 **Important :** `.blade` est impératif à renseigner dans le nom de la vue.
 
+Exemple de vue avec affichage :
+
+    @extends('structure.layout')
+    
+    @section('title','Définition du title (onglet)')
+    
+    @section('contenu')
+
+    <h1>Affichage des données récupérées</h1>
+        @foreach($nomArray as $eachElement)
+            {{ $eachElement->titre }}<br>
+            {{ $eachElement->reference }}<br>
+            {{ $eachElement->slug }}<br>
+            {{ $eachElement->prix }}<br>
+            {{ $eachElement->description }}<br>
+        @endforeach
+    @endsection 
+    
+Les `@` sont des services apportés par Laravel ils permettent plusieurs possibilités :
+* `@foreach` / `@endforeach`
+* `@if` / `@endif`
+* `@section` / `@endsection`
+* `@extends`
+
+Les `{{ }}` servent à afficher un élément (correspond au `echo`)
+
+La notation ` $element->titre ` correspond à `$element['titre']` en php procédural
