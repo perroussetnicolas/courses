@@ -12,7 +12,7 @@ _Cela nécessite d'avoir au préalable un projet Laravel_
 __Lier la DB au projet via PhpStorm__
 
 Dans PhpStorm, cliquer sur l'onglet **Database** > ajout (croix verte) > Data Source > MySQL \
-Remplir les champs de la fenêtre de configuration.\
+Remplir les champs de la fenêtre de configuration et cliquer sur `tester la connexion`\
 Attention aux numéros de ports
 
 Ensuite, ouvrir le fichier `.env` et modifier :
@@ -147,3 +147,36 @@ Les `@` sont des services apportés par Laravel ils permettent plusieurs possibi
 Les `{{ }}` servent à afficher un élément (correspond au `echo`)
 
 La notation ` $element->titre ` correspond à `$element['titre']` en php procédural
+
+__Créer la structure de page__
+
+La ligne `@extends('structure.layout')` fait appel au fichier `resources/views/structure/layout.blade.php`
+
+Pour ce faire il faut créer un dossier `structure` dans le dossier `resources/views/` et y créer le fichier `layout.blade.php`
+
+Exemple de fichier de structure : 
+
+    <!doctype html>
+    <html lang="{{ app()->getLocale() }}">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>@yield('title')</title>
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        </head>
+        <body>
+            <div class="flex-center position-ref full-height">
+                <div class="content">
+                   @yield('contenu')
+                </div>
+            </div>
+        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+        </body>
+    </html>

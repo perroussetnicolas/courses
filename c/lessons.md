@@ -88,3 +88,34 @@ Par la suite on peut continuer sur un traitement permettant d'afficher n fois un
     
 Après avoir compilé et executé le programme, on peut compter les caractères renvoyés avec : \
 `./nomDeLexecutable | wc -c` qui devrait renvoyer 43 car on prend en compte le `\n`
+
+
+**Les types composés**
+
+arrays : Une suite d'objets du même type répétés
+
+    type name[numeric_value] 
+    int tab[20]
+C'est la déclaration d'un tableau de 20 int
+
+Structure de données, la structure permet de définir une représentation d'objets en mémoire 
+
+    struct test
+    {
+        int a;
+        char b[21];
+    };
+    
+    struct test a;
+    
+**Les expressions**
+
+Les expressions sont une suite d'évaluations qui vont donner des résultats
+
+Les computations \
+`1 + 3 ( a * 20 + b[0] / sum(21, 34 - b[10]))`
+
+On remarque que le compilateur va calculer lu-même b[0] et les functions etc...
+
+Les comparateurs
+` == != < > <= => `, il va comparer les contenus des 2 variables, si c'est egal il renvoi `1` sinon `0`
