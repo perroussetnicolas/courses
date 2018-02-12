@@ -87,3 +87,83 @@ Placer le css de son slider dans le repertoire du plugin et le charger avec word
 Une fois que votre plugin est développé, appelé le où vous le souhaitez dans votre site ! 
 
         <?php nomDeLaFunctionDuPlugin(); ?>
+        
+__Lancer le slider__
+
+    function nomDeLaFunction()
+    { ?>
+    
+    <script type="text/javascript">
+        alert('hello world');
+    </script>
+    <?php
+    }
+
+    add_action('wp_footer', 'nomDeLaFunction');
+On l'appelle où l'on veut, ici dans le footer 
+
+__Metaboxes__
+
+    add_action('add_meta_boxes', 'my_slider_metaboxes');
+
+    function my_slider_metaboxes()
+    {
+        add_meta_box('elSancho_slider', 'URL du lien', 'my_slider_metabox', 'slide', 'normal', 'high');
+    }
+
+
+La function `add_meta_box()` permet de créer un formulaire dans le backoffice
+
+Pour faire apparaitre le champs de formulaire de l'url dans le backoffice : 
+    
+    function my_slider_metabox()
+    { ?>
+        <div class="meta-box-item-content">
+            <h4>URL du lien </h4>
+        </div>
+        <div class="meta-box-item-content">
+             <input type="text" name="my_slider_link" style="width: 100%;">
+        </div>
+    <?php }
+
+
+__Les métas__
+
+Dans la table `post` :
+* ID
+* Titre
+* post-type (détermine la slide et l'attachement, soit les images)
+
+Dans la table `post-metas`:
+
+* Post-id
+* Key
+* Value
+
+Example
+
+* Post-id : 2
+* Key : link
+* value : http://[...]
+
+La ligne de la table `post-meta` peremt de rajouter un url dans la table `post` grâce au système de clés étrangères
+
+__Sauvegarder les informations__
+
+Pour sauvegarder l'url dans la DB : 
+
+    add_action('save_post', 'my_slider_save_post', 10, 2);
+
+    function my_slider_save_post($post_id, $post)
+    {
+        # var_dump($post);
+        # die();
+        if(!isset($_POST['my_slider_link']) || empty($_POST['my_slider_link']))
+        {
+            return 0;
+        }
+        update_post_meta($post_id, '_my_slider_link', $_POST['my_slider_link']);
+    }
+    
+
+    global $post;
