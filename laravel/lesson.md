@@ -77,6 +77,15 @@ La commande `php artisan migrate` déclenche la function up() dans `/database/mi
 
 La commande `php artisan migrate:rollback` déclenche la function down() dans `/database/migrations/[date]_create_produits_table.php` et permet un retour en arrière
 
+La commande `php artisan make:migration alter_produit_table --table=produits` permet de créer un fichier alter_table afin de modifier des champs dans une table 
+
+    public function up()
+    {
+        Schema::table('produits', function (Blueprint $table) {
+            $table->string('reference')->unique()->change();
+        });
+    }
+
 __Créer une page d'affichage des éléments__
 
 Dans le fichier `/routes/web.php` on y renseigne les URL des pages disponibles
