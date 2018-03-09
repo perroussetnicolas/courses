@@ -76,4 +76,12 @@ Celui-ci doit être réutilisé en tant que nom de méthode et en paramètre de 
         $this->WP_Widget("elsancho_widget", "Le widget elSancho", $options);
     }
     
+Créer un formulaire dans l'onglet widget 
 
+    function form($data)
+    {
+        echo '<p>';
+        echo '<label id=' . $this->get_field_id("titre") . '>Titre :</label>';
+        echo '<input type=\'text\' name=' . $this->get_field_name("titre") . ' id=' . $this->get_field_id("titre") . '>';
+        echo '</p>';
+    }
