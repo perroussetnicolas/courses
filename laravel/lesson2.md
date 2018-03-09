@@ -124,3 +124,78 @@ Ensuite il est enregistré en base de donnée avec `update()` ou `save()`
         $produit->photo = 'photo_' . $produit->id . '.' .   $request->file('photo')->extension();
         $produit->update();
     }
+    
+    
+Modification
+-
+
+Aller dans le fichier de routes `web.php`
+Spécifier l'url d'edition de produits
+
+    Route::get('produit/modifier/{id}', 'ProduitController@formModifierProduit')->name('modifier.produit');
+    
+Dans le fichier d'affichage des produits, créer un lien vers la route créée
+
+    <a href= {{ route('produit.modifier', $value->id }}"></a>
+    
+Dans le Controller, créer la méthode modifierProduit
+
+    public function formModifierProduit($id)
+    {
+        $data['action'] = 'modifier';
+        try
+        {
+            $produitAmodifier = Produit::findOrFail($id);
+            ( A completer )
+        }
+        catch (ModelNotFoundException $e)
+        {
+           ( message flash d'erreur )
+        }
+    
+    }
+    
+Dans la vue du formulaire d'ajout de produits, vérifier la route.
+L'action du formulaire dépendra de l'url par laquelle on accède à la vue (modification ou ajout)
+
+    <form action="{{ route(Route::currentRouteName(), (!is_null($produitAmodifier) ? $produitAmodifier->id : '')) }}" method="post">
+
+Dans les values des champs inputs, vérifier si `$produitAmodifier` est présent sinon utiliser la function `old()`.\
+Exemple, liste quantité : 
+
+    
+    value="{{ ((!empty($produitAmodifier) && $produitAmodifier->quantite == $i) || old('quantite') == $i) ? 'selected' : '' }}"
+    
+Dans `web.php`, créer une route en méthode `post`
+
+    Route::post('produit/modifier/{id}', ProduitController@modifierProduit);
+    
+Dans le controller
+
+    public function modifierProduit($id, Request $request)
+    {
+        $data['action'] = 'modifier';
+        try
+        {
+            $produitAmodifier = Produit::findOrFail($id);
+        }
+        catch (ModelNotFoundException $e)
+        {
+            flash('Produit introuvable')->error();
+            return redirect()->route('produit.liste');
+        }
+        
+        $produit->titre = $request->titre;    
+        $produit->reference = $request->reference;    
+        
+        [ ... ]
+        
+        $update = $produit->update();
+        
+        if ($update) 
+        {
+            flash('Produit' . $produit->titre . 'modifié avec succès');
+        }
+        
+        return redirect()->route('produit.liste');
+    }
