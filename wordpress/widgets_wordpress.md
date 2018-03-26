@@ -42,6 +42,7 @@ Celle-ci devra prévoir 4 méthodes pour :
     * `form()`
     
 
+
     class nom_widget extends WP_widget
     {
     
